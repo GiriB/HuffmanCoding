@@ -1,5 +1,3 @@
-package huffman.coding;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,14 +16,14 @@ class Node {
 	}
 }
 
-public class HuffmanCoding{
+class HuffmanCoding {
 	Node root;
 	String encoded;
 	String decoded;
 	int FOUND;
 	int DONE;
 
-	Huffmkan_ver_3() {
+	HuffmanCoding() {
 		root = null;
 		encoded = "";
 		FOUND = 0;
@@ -33,6 +31,7 @@ public class HuffmanCoding{
 		DONE = 0;
 	}
 
+	
 	void display_tree(Node ROOT) {
 		if (ROOT != null) {
 			display_tree(ROOT.left);
@@ -70,18 +69,6 @@ public class HuffmanCoding{
 				DONE = 1;
 			}
 
-			// } else {
-			// if (ch == '0' && isValid(ROOT.left)) {
-			// {
-			// decoded += ROOT.right.info;
-			// }// System.out.println("Went OUT OF TREE !!");
-			// } else if (ch == '1') {
-			// decoded += ROOT.right.info;
-			// } else {
-			// System.out.println("Invalid ! Input!");
-			// }
-			//
-			// }
 		}
 
 		else {
@@ -91,9 +78,11 @@ public class HuffmanCoding{
 	}
 
 	String Decode_String(String S) {
-		
+		// System.out.println("Inside Decode -String and S is : " + S
+		// + " and root is " + root);
 		String dec = "";
 		if (S.length() != 0) {
+			// System.out.println("Inside : calling decoding : ");
 			decoding(S, root);
 			dec = decoded;
 			reset();
@@ -197,15 +186,15 @@ public class HuffmanCoding{
 
 }
 
-class HuffmanTester {
+public class HuffmanTester {
 
 	public static void main(String args[]) {
-		Scanner sc = new Scanner(System.in);
-		ArrayList<Node> list = new ArrayList<Node>();
-		Huffmkan_ver_3 H = new Huffmkan_ver_3();
+		Scanner sc = new Scanner(System.in); // for accepting standard input
+		ArrayList<Node> list = new ArrayList<Node>(); // to store the characters
+		HuffmanCoding H = new HuffmanCoding();
 		Node t;
-		int i = 0;
 
+		int i = 0;
 		System.out.println("What is your message ??");
 		String s = sc.nextLine();
 		if (s.length() == 0) {
@@ -213,7 +202,6 @@ class HuffmanTester {
 					.println("You didn't enter anything !!! Why ?? :( \n BYE!!");
 			System.exit(0);
 		}
-		// System.out.println("Size is " +s.length());
 
 		while (i < s.length()) {
 			if (!isPresent(s.charAt(i), list)) {
@@ -230,17 +218,9 @@ class HuffmanTester {
 			}
 			i++;
 		}
-		// System.out.println("The list is :");
-		// for (i = 0; i < list.size(); i++) {
-		// System.out.println(" " + list.get(i).info + " " + list.get(i).freq);
-		// }
 
+		// arranges the list according to the decreasing frquency
 		rearrange(list);
-
-		System.out.println("The list after arranging is :");
-		for (i = 0; i < list.size(); i++) {
-			System.out.println(" " + list.get(i).info + " " + list.get(i).freq);
-		}
 
 		if (list.size() > 1) {
 			while (list.size() >= 2) // should be greater than equal to 2
@@ -248,8 +228,6 @@ class HuffmanTester {
 				Node p = H.create_tree(list.get(0), list.get(1));
 				list.remove(0);
 				list.remove(0);
-
-				
 
 				if (list.size() != 0) {
 
@@ -264,6 +242,9 @@ class HuffmanTester {
 		}
 
 		H.display_tree(H.root);
+
+		// from this point onwards , just taking a string to encode , and
+		// decoding the same to check whether everything is working fine or not
 		String ENCODED = "";
 
 		System.out.println("\nThe encoded message is :");
@@ -275,11 +256,10 @@ class HuffmanTester {
 
 		System.out.print(ENCODED);
 
-		System.out.print("\nThe decoded message is :");
+		System.out.print("\nThe decoded message is :\n");
 		System.out.println(H.Decode_String(ENCODED));
-		ENCODED = "";
 
-		System.out.println("Your message");
+		ENCODED = "";
 		s = sc.nextLine();
 
 		i = 0;
@@ -293,6 +273,7 @@ class HuffmanTester {
 
 		System.out.print("\nThe decoded message is :");
 		System.out.println(H.Decode_String(ENCODED));
+
 		// H.display_tree(H.root);
 		// System.out.println();
 
@@ -308,6 +289,7 @@ class HuffmanTester {
 		return false;
 	}
 
+	//
 	private static void rearrange(ArrayList<Node> list) {
 		// TODO Auto-generated method stub
 
